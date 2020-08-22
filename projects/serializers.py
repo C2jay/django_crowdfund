@@ -11,8 +11,8 @@ class PledgeSerializer(serializers.Serializer):
     supporter = serializers.CharField(max_length=200)
     project_id = serializers.IntegerField()
 
-    def create(self, validated_data):
-        return Pledge.objects.create(**validated_data)
+    # def create(self, validated_data):
+    #     return Pledge.objects.create(**validated_data)
 
     
 class ProjectSerializer(serializers.Serializer):
