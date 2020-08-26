@@ -73,7 +73,7 @@ class PledgeList(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = PledgeSerializer(data=request.data)
+        serializer = PledgeSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(
@@ -84,4 +84,3 @@ class PledgeList(APIView):
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
-
