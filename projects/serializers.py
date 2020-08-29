@@ -22,6 +22,7 @@ class PledgeSerializer(serializers.Serializer):
 class ProjectSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     title = serializers.CharField(max_length=200)
+    category = serializers.ChoiceField(Project.PROJECT_CATEGORIES)
     description = serializers.CharField(max_length=200)
     goal = serializers.IntegerField()
     image = serializers.URLField()
@@ -33,12 +34,14 @@ class ProjectSerializer(serializers.Serializer):
     def create(self, validated_data):
         return Project.objects.create(**validated_data)
 
+
 class ProjectDetailSerializer(ProjectSerializer):
 # use this as detail view on projects
     pledges = PledgeSerializer(many=True, read_only=True)
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
+        instance.category = validated_data.get('category', instance.category)
         instance.description = validated_data.get('description', instance.description)
         instance.goal = validated_data.get('goal', instance.goal)
         instance.image = validated_data.get('image', instance.image)
@@ -46,18 +49,4 @@ class ProjectDetailSerializer(ProjectSerializer):
         instance.date_created = validated_data.get('date_created', instance.date_created)
         instance.save()
         return instance
-
-class Category(object): 
-    
-    def __init__(self, choices, multiplechoices): 
-        self.choices = choices 
-        self.multiplechoices = multiplechoices 
-  
-    categories = (  
-        ("1", "One"),  
-        ("2", "Two"),  
-        ("3", "Three"),  
-        ("4", "Four"),  
-        ("5", "Five")
-    )
 
