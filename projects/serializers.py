@@ -29,6 +29,7 @@ class ProjectSerializer(serializers.Serializer):
     date_created = serializers.DateTimeField()
     owner = serializers.ReadOnlyField(source='owner.username')
 
+
     def create(self, validated_data):
         return Project.objects.create(**validated_data)
 
@@ -45,3 +46,18 @@ class ProjectDetailSerializer(ProjectSerializer):
         instance.date_created = validated_data.get('date_created', instance.date_created)
         instance.save()
         return instance
+
+class Category(object): 
+    
+    def __init__(self, choices, multiplechoices): 
+        self.choices = choices 
+        self.multiplechoices = multiplechoices 
+  
+    categories = (  
+        ("1", "One"),  
+        ("2", "Two"),  
+        ("3", "Three"),  
+        ("4", "Four"),  
+        ("5", "Five")
+    )
+
