@@ -3,6 +3,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
+from rest_framework.parsers import MultiPartParser
 from .models import CustomUser
 from .serializers import CustomUserSerializer
 from .permissions import IsOwnerOrReadOnly
