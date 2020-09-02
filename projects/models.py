@@ -20,9 +20,9 @@ class Project(models.Model):
     )
     description = models.TextField()
     goal = models.IntegerField()
-    image = models.URLField()
+    project_image = models.URLField()
     is_open = models.BooleanField()
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(
         get_user_model(),
         on_delete= models.CASCADE,

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Project, Pledge
+from datetime import datetime
 
 
 
@@ -25,9 +26,9 @@ class ProjectSerializer(serializers.Serializer):
     category = serializers.ChoiceField(Project.PROJECT_CATEGORIES)
     description = serializers.CharField(max_length=200)
     goal = serializers.IntegerField()
-    image = serializers.URLField()
+    project_image = serializers.URLField()
     is_open = serializers.BooleanField()
-    date_created = serializers.DateTimeField()
+    date_created = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S")
     owner = serializers.ReadOnlyField(source='owner.username')
 
 
@@ -44,7 +45,7 @@ class ProjectDetailSerializer(ProjectSerializer):
         instance.category = validated_data.get('category', instance.category)
         instance.description = validated_data.get('description', instance.description)
         instance.goal = validated_data.get('goal', instance.goal)
-        instance.image = validated_data.get('image', instance.image)
+        instance.project_image = validated_data.get('project_image', instance.project_image)
         instance.is_open = validated_data.get('is_open', instance.is_open)
         instance.date_created = validated_data.get('date_created', instance.date_created)
         instance.save()

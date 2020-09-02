@@ -1,20 +1,25 @@
 from django.http import Http404
 from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework import status, permissions
+from rest_framework import status, permissions, filters, generics
 from rest_framework.response import Response
 from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
 from .permissions import IsOwnerOrReadOnly
 
+
 class ProjectList(APIView):
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
     ]
+    
+    def get_queryset(self, search_category="CP"):
+        return Project.objects.filter(category__exact=search_category)
 
     def get(self, request):
         projects = Project.objects.all()
         serializer = ProjectSerializer(projects, many=True)
+        print(self.get_queryset())
         return Response(serializer.data)
 
     def post(self, request):
@@ -46,6 +51,7 @@ class ProjectDetail(APIView):
     def get(self, request, pk):
         project = self.get_object(pk)
         serializer = ProjectDetailSerializer(project)
+        print(self.total_pledges(pk))
         return Response(serializer.data)
     
     def put(self, request, pk):
@@ -65,6 +71,15 @@ class ProjectDetail(APIView):
         self.check_object_permissions(request, project)
         project.delete()
         return Response(status.HTTP_204_NO_CONTENT)
+    
+    def get_pledges(self, pk):
+        return Pledge.objects.filter(project__exact=self.get_object(pk))
+    
+    def total_pledges(self, pk):
+        total = 0
+        for pledge in self.get_pledges(pk):
+            total += pledge.amount
+        return total
 
 
 class PledgeList(APIView):
@@ -86,3 +101,7 @@ class PledgeList(APIView):
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
+
+
+
+
