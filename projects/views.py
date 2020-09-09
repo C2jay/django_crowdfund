@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework import status, permissions, filters, generics
 from rest_framework.response import Response
@@ -12,7 +12,7 @@ class ProjectList(APIView):
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
     ]
-    
+
     def get_queryset(self, search_category="CP"):
         return Project.objects.filter(category__exact=search_category)
 
