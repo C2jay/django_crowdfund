@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
 from .permissions import IsOwnerOrReadOnly
+from rest_framework.authentication import TokenAuthentication
+
 
 
 class ProjectList(APIView):
