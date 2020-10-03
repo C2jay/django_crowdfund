@@ -68,7 +68,11 @@ class ProjectDetail(APIView):
         project = self.get_object(pk)
         print("2")
         print("3")
-        data = request.data
+        try:
+            data = request.data
+        except Exception as e:
+            print(e)
+            
         print("4")
         serializer = ProjectDetailSerializer(
             instance=project,
