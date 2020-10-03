@@ -62,20 +62,19 @@ class ProjectDetail(APIView):
         return Response(serializer.data)
     
     def put(self, request, pk):
-        print("superwat")
-        print(request.data)
-        print(pk)
+        print("1")
         project = self.get_object(pk)
+        print("2")
         self.check_object_permissions(request, project)
+        print("3")
         data = request.data
-        print("wat")
-        print(data)
+        print("4")
         serializer = ProjectDetailSerializer(
             instance=project,
             data=data,
             partial=True
         )
-
+        print("5")
         if serializer.is_valid():
             serializer.save()
             return Response(
