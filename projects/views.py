@@ -67,7 +67,6 @@ class ProjectDetail(APIView):
         print("1")
         project = self.get_object(pk)
         print("2")
-        self.check_object_permissions(request, project)
         print("3")
         data = request.data
         print("4")
