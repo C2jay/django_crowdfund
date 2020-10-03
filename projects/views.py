@@ -9,7 +9,7 @@ from .permissions import IsOwnerOrReadOnly
 from rest_framework.authentication import TokenAuthentication
 
 import logging
-logger = logging.getLogger('django.server')
+
 
 
 class ProjectList(APIView):
@@ -34,6 +34,7 @@ class ProjectList(APIView):
                 serializer.data,
                 status=status.HTTP_201_CREATED
             )
+        logger = logging.getLogger('django.server')
         logger.error("What the what")
         logger.error(str(serializer.errors))
         return Response(
