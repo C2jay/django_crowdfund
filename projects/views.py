@@ -65,6 +65,8 @@ class ProjectDetail(APIView):
         project = self.get_object(pk)
         self.check_object_permissions(request, project)
         data = request.data
+        print("wat")
+        print(data)
         serializer = ProjectDetailSerializer(
             instance=project,
             data=data,
