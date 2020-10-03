@@ -10,7 +10,7 @@ from rest_framework.authentication import TokenAuthentication
 
 import logging
 logger = logging.getLogger('django.server')
-logger.error('some important infos')
+
 
 class ProjectList(APIView):
     permission_classes = [
@@ -34,6 +34,7 @@ class ProjectList(APIView):
                 serializer.data,
                 status=status.HTTP_201_CREATED
             )
+        logger.error(serializer.errors)
         return Response(
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
