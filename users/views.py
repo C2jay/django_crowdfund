@@ -65,12 +65,7 @@ class UserCreate(APIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        print('serializer is valid')
         user = serializer.save()
-        print(user)
-        print(user.id)
-
-        print('user!')
         token = Token.objects.create(user=user)
         json = serializer.data
         json['token'] = token.key
