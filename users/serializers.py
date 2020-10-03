@@ -10,9 +10,9 @@ class CustomUserSerializer(serializers.Serializer):
     last_name = serializers.CharField(max_length=25, default="")
     email = serializers.CharField(max_length=100)
     
-
     def create(self, validated_data):
-        return CustomUser.objects.create_user(**validated_data)
+        user = CustomUser.objects.create_user(**validated_data)
+        return user
 
     def update(self, instance, validated_data):
         instance.username= validated_data.get('username', instance.username)
@@ -23,4 +23,4 @@ class CustomUserSerializer(serializers.Serializer):
     
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'email', 'password')
+        # fields = ('id', 'username', 'email', 'password')

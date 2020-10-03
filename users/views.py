@@ -16,12 +16,12 @@ class CustomUserList(APIView):
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
     
-    def post(self, request):
-        serializer = CustomUserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+    # def post(self, request):
+    #     serializer = CustomUserSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors)
 
 class CustomUserDetail(APIView):
     permission_classes = [
@@ -59,24 +59,27 @@ class CustomUserDetail(APIView):
             status=status.HTTP_400_BAD_REQUEST
         )
 
-class UserCreate(generics.CreateAPIView):
-    # def post(self, request):
-    #     serializer = CustomUserSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         print('serializer is valid')
-    #         user = serializer.save()
-    #         if user:
-    #             print('user!')
-    #             token = Token.objects.create(user=user)
-    #             json = serializer.data
-    #             json['token'] = token.key
-    #             return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class UserCreate(APIView):
+    def post(self, request):
+        serializer = CustomUserSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    queryset = CustomUser.objects.all()
-    serializer_class = CustomUserSerializer
+        print('serializer is valid')
+        user = serializer.save()
+        print(user)
+        print(user.id)
 
-    def check_permissions(self, request):
-        if request.user.is_authenticated:
-            self.permission_denied(request)
+        print('user!')
+        token = Token.objects.create(user=user)
+        json = serializer.data
+        json['token'] = token.key
+        return Response(json, status=status.HTTP_201_CREATED)
+
+    # queryset = CustomUser.objects.all()
+    # serializer_class = CustomUserSerializer
+
+    # def check_permissions(self, request):
+    #     if request.user.is_authenticated:
+    #         self.permission_denied(request)
         
