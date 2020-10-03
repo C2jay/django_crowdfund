@@ -3,11 +3,11 @@ from django.contrib.auth import get_user_model
 
 class Project(models.Model):
     PROJECT_CATEGORIES = (  
-        ("Cupcakes", "Cupcakes"),  
-        ("Cake", "Cake"),  
-        ("Fondant", "Fondant"),  
-        ("Buttercream", "Buttercream"),  
-        ("Pastry", "Pastry"),
+        ("Cupcakes"),  
+        ("Cake"),  
+        ("Fondant"),  
+        ("Buttercream"),  
+        ("Pastry"),
         (None, "")
     )
 
