@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath sugarmomma sugarmomma.wsgi --log-file -
+web: gunicorn --pythonpath sugarmomma sugarmomma.wsgi --log-file=-
