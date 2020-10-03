@@ -8,7 +8,9 @@ from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSeria
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.authentication import TokenAuthentication
 
-
+import logging
+logger = logging.getLogger('django.server')
+logger.error('some important infos')
 
 class ProjectList(APIView):
     permission_classes = [
