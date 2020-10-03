@@ -63,6 +63,8 @@ class ProjectDetail(APIView):
     
     def put(self, request, pk):
         print("superwat")
+        print(request)
+        print(pk)
         project = self.get_object(pk)
         self.check_object_permissions(request, project)
         data = request.data
