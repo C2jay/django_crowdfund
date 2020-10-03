@@ -5,9 +5,10 @@ class Project(models.Model):
     PROJECT_CATEGORIES = (  
         ("Cupcakes", "Cupcakes"),  
         ("Cake", "Cake"),  
-        ("Fondant", "Fondant"),  
-        ("Buttercream", "Buttercream"),  
+        ("Pies", "Pies"),  
         ("Pastry", "Pastry"),
+        ("Cookies", "Cookies"),
+        ("Other", "Other"),
         (None, "")
     )
 
