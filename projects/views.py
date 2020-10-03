@@ -34,7 +34,8 @@ class ProjectList(APIView):
                 serializer.data,
                 status=status.HTTP_201_CREATED
             )
-        logger.error(serializer.errors)
+        logger.error("What the what")
+        logger.error(str(serializer.errors))
         return Response(
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
