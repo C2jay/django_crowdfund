@@ -64,16 +64,8 @@ class ProjectDetail(APIView):
         return Response(serializer.data)
     
     def put(self, request, pk):
-        print("1")
         project = self.get_object(pk)
-        print("2")
-        print("3")
-        try:
-            data = request.data
-        except Exception as e:
-            print(e)
-            
-        print("4")
+        data = request.data
         serializer = ProjectDetailSerializer(
             instance=project,
             data=data,
