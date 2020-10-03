@@ -62,6 +62,7 @@ class ProjectDetail(APIView):
         return Response(serializer.data)
     
     def put(self, request, pk):
+        print("superwat")
         project = self.get_object(pk)
         self.check_object_permissions(request, project)
         data = request.data
