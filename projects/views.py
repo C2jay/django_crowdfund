@@ -65,7 +65,8 @@ class ProjectDetail(APIView):
             data=data,
             partial=True
         )
-
+        if not serializer.is_valid():
+            print(serializer.errors)
         if serializer.is_valid():
             serializer.save()
             return Response(
