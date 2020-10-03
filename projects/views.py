@@ -8,9 +8,6 @@ from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSeria
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.authentication import TokenAuthentication
 
-import logging
-logger = logging.getLogger('django.server')
-
 
 
 class ProjectList(APIView):
@@ -68,8 +65,7 @@ class ProjectDetail(APIView):
             data=data,
             partial=True
         )
-        if not serializer.is_valid():
-            logger(serializer.errors)
+
         if serializer.is_valid():
             serializer.save()
             return Response(
@@ -77,7 +73,7 @@ class ProjectDetail(APIView):
                     status=status.HTTP_202_ACCEPTED
                 )
         return Response(
-            serializer.errors,
+            data=serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
 
