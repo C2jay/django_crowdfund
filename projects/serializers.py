@@ -9,7 +9,7 @@ from rest_framework.authentication import TokenAuthentication
 class PledgeSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     amount = serializers.IntegerField(max_value=500, min_value=1)
-    comment = serializers.CharField(max_length=200, allow_blank=True)
+    comment = serializers.CharField(max_length=200)
     anonymous = serializers.BooleanField()
     supporter = serializers.SlugRelatedField(
         read_only=True,
