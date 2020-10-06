@@ -26,7 +26,7 @@ class ProjectSerializer(serializers.Serializer):
     id = serializers.ReadOnlyField()
     title = serializers.CharField(max_length=200)
     category = serializers.ChoiceField(Project.PROJECT_CATEGORIES)
-    description = serializers.CharField(max_length=200)
+    description = serializers.CharField(max_length=1000)
     goal = serializers.IntegerField()
     project_image = serializers.URLField()
     is_open = serializers.BooleanField()
